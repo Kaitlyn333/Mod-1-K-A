@@ -1,4 +1,4 @@
-from patients import Patient       
+from patients_Alen import Patient       
 import csv                          
 import matplotlib.pyplot as plt     
 from scipy import stats             
