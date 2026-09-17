@@ -52,7 +52,7 @@ print(f'x_female_bar = {x_female_bar}, bw_femalestdev {bw_female_stdev}')
 sex_cols = ['Male', 'Female']
 mean_sex = [x_male_bar, x_female_bar]
 stdev_sex = [bw_male_stdev, bw_female_stdev]
-yerr = [stdev_sex, stdev_sex]
+yerr = [np.zeros((2)), stdev_sex]
 
 
 # Create and show the bar chart
@@ -88,4 +88,14 @@ plt.scatter(X, Y, color='blue')
 plt.xlabel('Amyloid-Beta 42 (pg/ug)')
 plt.ylabel('pTAU (pg/ug)')
 plt.title('Scatter Plot of ABeta42 levels vs pTAU levels (pg/ug)')
+plt.show()
+
+t_stat, p_val = stats.ttest_ind(male_bw, female_bw)
+print(f't_stat = {t_stat}, p_val = {p_val}')
+plt.bar(sex_cols, mean_sex, yerr=yerr, capsize=10, color=["blue", "orange"])
+plt.title("How Biological Sex Affects Brain Weight")
+plt.xlabel("Biological Sex")
+plt.ylabel("Brain Weight")
+y_max = max(mean_sex) + max(stdev_sex) * .4
+plt.text(0.5, y_max, f"t = {t_stat:.2f}\np = {p_val:.3e}", ha='center', va='bottom')
 plt.show()
