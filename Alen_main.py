@@ -7,7 +7,7 @@ import statistics
 
 
 # Load all patient records from the CSV file into Patient.all_patients
-Patient.instantiate_from_csv("/Users/alenabhilash/Desktop/CompBME/Module 0/Mod-1-K-A/Metadata and Protein Data for Module 1.csv")
+Patient.instantiate_from_csv("Metadata and Protein Data for Module 1.csv")
 
 
 # Sort the patients list in-place by their age (uses get_age as the sort key)
