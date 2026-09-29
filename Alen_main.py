@@ -109,7 +109,7 @@ plt.title('Scatter Plot of ABeta42 levels vs pTAU levels (pg/ug)')
 
 
 # Add equation and R value to top-right corner
-equation = f'y = {slope:.2f}x + {intercept:.2f}'
+equation = f'y = {slope:.4f}x + {intercept:.2f}'
 r_text = f'R = {r_value:.2f}'
 
 plt.text(
