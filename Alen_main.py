@@ -64,7 +64,8 @@ plt.show()
 
 # Holds ABeta42 levels for every patient
 ABeta42 = []   
-# Hold pTAU levels for every patient
+
+# Holds pTAU levels for every patient
 pTAU = []      
 
 
@@ -73,29 +74,54 @@ for Patient in Patient.all_patients:
     ABeta42.append(Patient.ABeta42)
 
 
-# Collect pTAU measurement from each patient
+# Collect pTAU measurement for every patient
 for Patient in Patient.all_patients:
     pTAU.append(Patient.pTAU)
 
+
 # Independent variable
-X = [ABeta42]  
+X = ABeta42
+
 # Dependent variable
-Y = [pTAU]  
+Y = pTAU
 
 
-# Scatter plot of ABeta42 vs pTAU
+# Calculate the regression line
+slope, intercept, r_value, p_value, std_err = stats.linregress(X, Y)
+
+
+# Calculate the predicted Y values
+regression_line = slope * np.array(X) + intercept
+
+
+# Create scatter plot
 plt.scatter(X, Y, color='blue')
+
+
+# Add regression line
+plt.plot(X, regression_line, color='red')
+
+
+# Add labels and title
 plt.xlabel('Amyloid-Beta 42 (pg/ug)')
 plt.ylabel('pTAU (pg/ug)')
 plt.title('Scatter Plot of ABeta42 levels vs pTAU levels (pg/ug)')
+
+
+# Add equation and R value to top-right corner
+equation = f'y = {slope:.2f}x + {intercept:.2f}'
+r_text = f'R = {r_value:.2f}'
+
+plt.text(
+    0.95, 0.95,
+    equation + '\n' + r_text,
+    transform=plt.gca().transAxes,
+    ha='right',
+    va='top'
+)
+
+
+# Show scatter plot
 plt.show()
 
-t_stat, p_val = stats.ttest_ind(male_bw, female_bw)
-print(f't_stat = {t_stat}, p_val = {p_val}')
-plt.bar(sex_cols, mean_sex, yerr=yerr, capsize=10, color=["blue", "orange"])
-plt.title("How Biological Sex Affects Brain Weight")
-plt.xlabel("Biological Sex")
-plt.ylabel("Brain Weight")
-y_max = max(mean_sex) + max(stdev_sex) * .4
-plt.text(0.5, y_max, f"t = {t_stat:.2f}\np = {p_val:.3e}", ha='center', va='bottom')
-plt.show()
+
